@@ -28,7 +28,8 @@ public class DynamicScheduler {
 	}
 	public void runTask() {
 		String now = LocalDateTime.now().toString();
-		mailService.sendSimpleMail(DynamicScheduler.to, "THIS IS SPAMMER", "This mail was sent now :" + now);
+		System.out.println("The mail is being fired to : " + DynamicScheduler.to);
+		mailService.sendSimpleMail(DynamicScheduler.to, "THIS IS SPAMMER VERSION 1", "This mail was sent now :" + now);
 		System.out.println("================================ I am running =============================");
 	}
 	
