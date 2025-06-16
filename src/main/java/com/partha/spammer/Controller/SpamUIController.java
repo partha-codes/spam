@@ -42,7 +42,7 @@ public class SpamUIController {
 	@PostMapping("/start")
     public String startAction(@ModelAttribute("email") String email) {
         System.out.println("START button clicked! Email: " + email);
-        scheduler.startTask();
+        scheduler.startTask(email);
         return "action";
     }
 

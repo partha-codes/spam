@@ -17,17 +17,18 @@ public class DynamicScheduler {
 	private MailService mailService;
 	
 	private ScheduledFuture<?> scheduledTask;
+	private static String to; 
 	
-	
-	public void startTask() {
+	public void startTask(String mail) {
 		if(scheduledTask == null || scheduledTask.isCancelled()) {
 			scheduledTask = taskScheduler.scheduleAtFixedRate(this:: runTask, 10000);
+			DynamicScheduler.to = mail;
 			System.out.println("Task Started...");
 		}
 	}
 	public void runTask() {
 		String now = LocalDateTime.now().toString();
-		mailService.sendSimpleMail("parthadebnath68@gmail.com", "THIS IS SPAMMER", "This mail was sent now :" + now);
+		mailService.sendSimpleMail(DynamicScheduler.to, "THIS IS SPAMMER", "This mail was sent now :" + now);
 		System.out.println("================================ I am running =============================");
 	}
 	
@@ -35,6 +36,7 @@ public class DynamicScheduler {
 		if(scheduledTask != null && !scheduledTask.isCancelled()) {
 			scheduledTask.cancel(true);
 			System.out.println("Task Stopped...");
+			DynamicScheduler.to = "";
 		}
 	}
 }
